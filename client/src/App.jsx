@@ -8,7 +8,6 @@ import './App.css'
 function App() {
   const [state, send] = useMachine(gameplayMachine);
 
-  console.log(state);
   if (state.matches('catalyst_earth')) {
     return (
       <div>
