@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { useMachine } from '@xstate/react'
 import { gameplayMachine } from './gameplay'
 
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 
