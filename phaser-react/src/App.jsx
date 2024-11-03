@@ -1,7 +1,9 @@
-import GameCanvas from './game/GameCanvas'
-
 export default function App() {
   return (
-    <GameCanvas />
+    <>
+      <h1>Simulation goes here. </h1>
+      <p>State machine will route to different states which are different scenes of the simulaton.</p>
+    </>
+    
   )
 }
