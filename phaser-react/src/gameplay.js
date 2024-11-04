@@ -1,6 +1,7 @@
 import { createMachine } from "xstate";
 
 export const gameplayMachine = createMachine({
+    /** @xstate-layout N4IgpgJg5mDOIC5RQIYFswAcA2KCeAdAMYoAuK2espA+mCgE6kAWAxAMIDyAcgCoCS3AKoBRANoAGALqJQmAPawAlqSXyAdrJAAPRAEYArAGYA7AQAsJgwCYJdiQE4T5wwBoQeRLb0ETRgwBsJtZOABwm4Q4AvlHuqBg4+MRkFFS0RPIAruqkDHgcPALC4tJaCsqqGlq6CHqhRqG+dQGhEuZGRg5Geibungjevv5BIRFj0bEg8Vi4hPIARgBWYESqAG5grPwAMtsiAOIAgts0nAAKAjw0AMoie+y8IgAikjJIIOUqaprvNXUNTVCLTaHS6PT6iFCPiM1hCeiM5gcoQMenaehicXQMySC2WqyUG1YeyOJ3Ol24NzuIgez1eZUUXyqvy81j0AQIAUMrShVkMBghA0cBAkoXMAW6emspnCkoxUyxiUISmw2DAqGwNHkmEq6gKfEEojp70+OuqXgk1l8zj81kRJi6iIF5nMlsCej0Dg9nQ6BgkATl00VBGVqvVmu131YACURNdeIco7wjXIGabmYLLSZrTC7Q6HAKYZbUaKcwYHH7DAGFbNiIpaPIAGY0DJ4eSkTZcfXFZMfVPfM0IRFGAg2Bxg+qheo9XoeRDO12cj1err+P1VhI1sDqLJQZg0NAaMD5OMJpOlY19pmgGoRBwEOHi+HzsFOl0jxeeror33+yaBmsQPgsA0JgKCwLAepFIa54phU-bpnoEiGMKSKelYX7OK+C7up+3qrr+mIbkkEBwGATCQQaJRvLBjI-Ne+jWAYjR2OW4p+pOoTWAEWHvjhy4+muf7VsR9AsBR3Ywb2cFXjo+jGGYlg2PYjjOG4s6Dm+bpLl+AkEfKRGEA2KDKpAmpLCs6ybDGJ6Jj2JrwfRtQToCwLtN64LqfOvHaXhP4xJM24kfA7z-vg9LSXRskIAAtNx6mxcKylJcpJjrtihAkOQlDUHQjAsOFtEDvCoR3iYAQSP4nElSYqICoM5ZGAELh+OYfoGOYaVBplqQ5Rk2S5P0NFpo5bLOPeXGIjYRgSAYfh1UhBANU1PQIm15gGJ1Na4hZBJgAVw1RaydgEJOARNQYs3dA45jzXejGMWOkR+mKm1JCGaoUOGB32TJNQugKJUneK1hZpyATWCVnGvRldaak2LZtntF4RQOoIjlxFpZnUZXikYPHBJ65UBNdnJcUY0MEFuO57ge6hHvtDlRWx95QrCJgzQ4Z0dPjD5+iTkobUJBkEIBVAgWBwVDYzNQleY96E9NEjBMr-KeW+BNsnzYoCxTQVkaQDO-fohg+MiFqSlC5itO1POE1rpOC4R6Ui6JzCG5FfwuBII4NP4rWwi0DjWLbmvE9rZMU0ZJkQGZeKWe7RVBHLAeTVKM1zWrma82HDsUxkaA4GA7Yx9t+IbAn6a2rNwoRBVQeKWK83MTNyKzS6Y7BKE-lREAA */
     id: "gameplay",
     initial: "catalyst_earth",
     context: {
@@ -29,21 +30,14 @@ export const gameplayMachine = createMachine({
         catalyst_country: {
             on: {
                 CONTINUE: {
-                    target: "catalyst_objective",
+                    target: "objective",
                 },
             },
         },
-        catalyst_objective: {
-            on: {
-                CONTINUE: {
-                    target: "decision_AB",
-                },
-            },
-        },
-        decision_AB: {
+        objective: {
             on: {
                 ILLEGAL_OPTION_SELECTED: {
-                    target: "decision_A1",
+                    target: "find_coyote",
                     // cond: "isSelectedIllegalOption",
                     // actions: "assignDataToContext",
                 },
@@ -52,7 +46,7 @@ export const gameplayMachine = createMachine({
                 },
             },
         },
-        decision_A1: {
+        find_coyote: {
             on: {
                 CONTINUE: {
                     target: "cost_of_coyote",
@@ -61,38 +55,57 @@ export const gameplayMachine = createMachine({
                 //     target: "decision_B1",
                 // }
                 RESTART: {
-                    target: "decision_AB",
+                    target: "objective",
                 },
             },
         },
         cost_of_coyote: {
             on: {
                 CONTINUE: {
-                    target: "decision_A2",
+                    target: "enough_money",
                 }
             }
         },
-        decision_A2: {
+        enough_money: {
             on: {
-                CONTINUE: {
-                    target: "start_journey1",
+                START: {
+                    target: "days_pass",
                 },
             },
         },
-        start_journey1: {
+        days_pass: {
             on: {
                 CONTINUE: {
-                    target: "start_journey2",
+                    target: "desert",
                 },
             },
         },
-        start_journey2: {
+        desert: {
             on: {
                 CONTINUE: {
-                    target: "completed_objective",
+                    target: "death",
                 },
             },
         },
+        death: {
+            on: {
+                CONTINUE: {
+                    target: "failed_objective",
+                },
+            },
+        },
+        failed_objective: {
+            on: {
+                RESTART: {
+                    target: "objective",
+                },
+            },
+        },
+        // on: {
+        //     RESTART: {
+        //         target: "completed_objective",
+        //     },
+        // },
         completed_objective: {
             type: "final",
         }
