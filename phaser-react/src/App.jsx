@@ -1,61 +1,23 @@
 import { useMachine } from '@xstate/react'
 import { gameplayMachine } from './gameplay'
 
+import Catalyst from './states/flow1/Catalyst';
+import Objective from './states/flow1/Objective';
+import FindCoyote from './states/flow1/FindCoyote'
+
+const scenes = {
+  catalyst_earth: Catalyst,
+  catalyst_country: Catalyst,
+  objective: Objective,
+  find_coyote: FindCoyote,
+};
 
 export default function App() {
   const [state, send] = useMachine(gameplayMachine);
 
-  if (state.matches('catalyst_earth')) {
-    return (
-      <div>
-        Catalyst Earth
-        <button onClick={() => send({type: "CONTINUE"})}>continue</button>
-      </div>
-    );
-  }
-  if (state.matches('catalyst_country')) {
-    return (
-      <div>
-        Catalyst Country
-        <button onClick={() => send({type: "CONTINUE"})}>continue</button>
-      </div>
-    );
-  }
+  // Get the component based on the current state
+  const SceneComponent = scenes[state.value];
 
-  if (state.matches('catalyst_objective')) {
-    return (
-      <div>
-        Catalyst Objective
-        <button onClick={() => send({type: "CONTINUE"})}>continue</button>
-      </div>
-    );
-  }
-
-  if (state.matches('decision_AB')) {
-    return (
-      <div>
-        Decision AB
-        <button onClick={() => send({type: "ILLEGAL_OPTION_SELECTED"})}>continue</button>
-        <button onClick={() => send({type: "LEGAL_OPTION_SELECTED"})}>restart</button>
-      </div>
-    );
-  }
-
-  
-
-  if (state.matches('completed_objective')) {
-    return (
-      <div>
-        Completed Objective
-      </div>
-    );
-  }
-  
-  return (
-    <>
-      <h1>Simulation goes here. </h1>
-      <p>State machine will route to different states which are different scenes of the simulaton.</p>
-    </>
-    
-  )
+  // Render the component if it exists
+  return SceneComponent ? <SceneComponent state={state} send={send} /> : null;
 }
