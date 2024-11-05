@@ -3,8 +3,8 @@
 export default function DaysPass({ send }) {
   return (
     <div>
-        Days Pass
-        <button onClick={() => send({type: "CONTINUE"})}>continue</button>
+        <h1>Days Pass</h1>
+        <button onClick={() => send({type: "CONTINUE"})}>Continue</button>
     </div>
   )
 }
