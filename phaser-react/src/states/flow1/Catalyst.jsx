@@ -12,7 +12,7 @@ export default function Catalyst({ state, send }) {
       </div>
     );
   }
-  if (state.matches('catalyst_country')) {
+  else if (state.matches('catalyst_country')) {
     return (
       <div>
         <h1> Catalyst Country </h1>
@@ -21,8 +21,10 @@ export default function Catalyst({ state, send }) {
       </div>
     );
   }
-  
-  return (
+  else {
+    return (
     <div> Error: create error page later </div>
   )
+  }
+  
 }
