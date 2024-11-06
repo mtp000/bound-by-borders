@@ -34,7 +34,7 @@ export const gameplayMachine = createMachine({
                 },
             },
         },
-        objective: {
+        objective: { //decision node
             on: {
                 ILLEGAL_OPTION_SELECTED: {
                     target: "find_coyote",
@@ -46,20 +46,20 @@ export const gameplayMachine = createMachine({
                 },
             },
         },
-        find_coyote: {
+        find_coyote: { 
             on: {
-                CONTINUE: {
+                CONTINUE: { // pseudo decision node
                     target: "cost_of_coyote",
                 },
                 // LEGAL_OPTION_SELECTED: {
                 //     target: "decision_B1",
                 // }
-                RESTART: {
+                RESTART: { // restart game
                     target: "objective",
                 },
             },
         },
-        cost_of_coyote: {
+        cost_of_coyote: { // psuedo decision node
             on: {
                 CONTINUE: {
                     target: "enough_money",
