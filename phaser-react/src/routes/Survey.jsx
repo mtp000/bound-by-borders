@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
 export default function Form() {
-    const {formData, setFormData} = useState(null);
+    const {formData, setFormData} = useState({
+        immigrantVisas: {},
+        nonImmigrantVisas: {},
+        understanding: "",
+        feedback: ""
+    });
 
     //handle input changes
     const handleChange = (e) => {
@@ -30,20 +35,20 @@ export default function Form() {
                              options were you aware of prior to the simulation?
                             </p>
                             <label>
-                                <input type="checkbox" name="immigrantVisas" value="diversity"  onChange={handleChange}/>
+                                <input type="checkbox" data-group="immigrantVisas" name="diversity"  onChange={handleChange}/>
                                 Divserity (ie lottery)
                             </label>
                             <label>
-                                <input type="checkbox" name="immigrantVisas" value="familyBased" onChange={handleChange} />
+                                <input type="checkbox" data-group="immigrantVisas" name="familyBased" onChange={handleChange} />
                                 Family-based
                             </label>
 
                             <label>
-                                <input type="checkbox" name="immigrantVisas" value="employmentBased" onChange={handleChange}/>
+                                <input type="checkbox" data-group="immigrantVisas" value="employmentBased" onChange={handleChange}/>
                                 Employment-based
                             </label>
                             <label>
-                                <input type="checkbox" name="immigrantVisas" value="refugee" onChange={handleChange}/>
+                                <input type="checkbox" data-group="immigrantVisas" name="refugee" onChange={handleChange}/>
                                 Refugee/ Asylum seekers
                             </label>
                         </li>
@@ -56,20 +61,20 @@ export default function Form() {
                                 git options were you aware of prior the simulation?
                             </p>
                             <label>
-                                <input type="checkbox" name="fiance" onChange={handleChange}/>
+                                <input type="checkbox" name="fiance" data-group="nonImmigrantVisas" onChange={handleChange}/>
                                 Fiancé
                             </label>
                             <label>
-                                <input type="checkbox" name="work" onChange={handleChange}/>
+                                <input type="checkbox" name="work" data-group="nonImmigrantVisas" onChange={handleChange}/>
                                 Work
                             </label>
 
                             <label>
-                                <input type="checkbox" name="tourism" onChange={handleChange}/>
+                                <input type="checkbox" name="tourism" data-group="nonImmigrantVisas" onChange={handleChange}/>
                                 Tourism
                             </label>
                             <label>
-                                <input type="checkbox" name="student" onChange={handleChange}/>
+                                <input type="checkbox" name="student" data-group="nonImmigrantVisas" onChange={handleChange}/>
                                 Student
                             </label>
                         </li>
@@ -81,15 +86,15 @@ export default function Form() {
                                 of the visa options mentioned above?
                             </p>
                             <label>
-                                <input type="radio" value="yes" onChange={handleChange}/>
+                                <input type="radio" data-group="understanding" name="yes" onChange={handleChange}/>
                                 Yes, I have learned more about some or all of the visa options.
                             </label><br/>
                             <label>
-                                <input type="radio" value="no" onChange={handleChange}/>
+                                <input type="radio" data-group="understanding" name="no" onChange={handleChange}/>
                                 No, my understanding of the visa options has not changes.
                             </label><br/>
                             <label>
-                                <input type="radio" value="unsure" onChange={handleChange}/>
+                                <input type="radio" data-group="understanding" name="unsure" onChange={handleChange}/>
                                 I am unsure if my understanding has changed.
                             </label>
                         </li>
@@ -101,7 +106,7 @@ export default function Form() {
                                 experience?
                             </p>
                             <label>
-                                <textarea rows="7" cols="60" onChange={handleChange}/>
+                                <textarea rows="7" cols="60" name="feedback" onChange={handleChange}/>
                             </label>
                         </li>
                     </ol>
