@@ -8,6 +8,13 @@ export default defineConfig({
         react(),
     ],
     server: {
-        port: 8080
-    }
+        proxy: {
+          // Proxy requests starting with /api to the backend server
+          '/api': {
+            target: 'http://localhost:8080',
+            changeOrigin: true, // Changes the origin of the request to the target URL
+            secure: false
+          },
+        },
+      },
 })
