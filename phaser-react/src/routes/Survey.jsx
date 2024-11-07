@@ -30,21 +30,20 @@ export default function Form() {
                              options were you aware of prior to the simulation?
                             </p>
                             <label>
-                                <input type="checkbox" name="diversity" 
-                                value="diversity"  onChange={handleChange}/>
+                                <input type="checkbox" name="immigrantVisas" value="diversity"  onChange={handleChange}/>
                                 Divserity (ie lottery)
                             </label>
                             <label>
-                                <input type="checkbox" name="familyBased" onChange={handleChange} />
+                                <input type="checkbox" name="immigrantVisas" value="familyBased" onChange={handleChange} />
                                 Family-based
                             </label>
 
                             <label>
-                                <input type="checkbox" name="employmentBased" onChange={handleChange}/>
+                                <input type="checkbox" name="immigrantVisas" value="employmentBased" onChange={handleChange}/>
                                 Employment-based
                             </label>
                             <label>
-                                <input type="checkbox" name="refugee" onChange={handleChange}/>
+                                <input type="checkbox" name="immigrantVisas" value="refugee" onChange={handleChange}/>
                                 Refugee/ Asylum seekers
                             </label>
                         </li>
