@@ -23,7 +23,7 @@ export default function Form() {
                     }
                 };
             } else if (type === "radio") {
-                return { ...prevState, [group]: name };
+                return { ...prevState, [name]: value };
             } else {
                 return { ...prevState, [name] : value };
             }
@@ -105,15 +105,15 @@ export default function Form() {
                                 of the visa options mentioned above?
                             </p>
                             <label>
-                                <input type="radio" data-group="understanding" name="yes" onChange={handleChange}/>
+                                <input type="radio" name="understanding" value="yes" onChange={handleChange}/>
                                 Yes, I have learned more about some or all of the visa options.
                             </label><br/>
                             <label>
-                                <input type="radio" data-group="understanding" name="no" onChange={handleChange}/>
+                                <input type="radio" name="understanding" value="no" onChange={handleChange}/>
                                 No, my understanding of the visa options has not changes.
                             </label><br/>
                             <label>
-                                <input type="radio" data-group="understanding" name="unsure" onChange={handleChange}/>
+                                <input type="radio" name="understanding" value="unsure" onChange={handleChange}/>
                                 I am unsure if my understanding has changed.
                             </label>
                         </li>
