@@ -1,17 +1,23 @@
 import express from 'express';
-import path from 'path';
+import path, {dirname} from 'path';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
-
 const app = express();
 const PORT = process.env.PORT;
-
-// Serve static files from the dist directory
-//app.use(express.static(path.join(__dirname, 'dist')));
 app.use(cors());
 app.use(express.json());
+
+//PROD: construct path to build folder in ES modules
+const _filename = fileURLToPath(import.meta.url);
+const _dirname = dirname(_filename);
+
+// PROD: Serve static files from the dist directory
+app.use(express.static(path.join(__dirname, 'dist')));
+
+
 
 let gameStartCounter = 0;
 
@@ -36,10 +42,10 @@ app.post('/api/start-game', (req, res) => {
     res.status(200).json({ message: 'Game start counter updated', counter: gameStartCounter });
   });
 
-// Send all other requests to index.html
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-// });
+//PROD: Send all other requests to index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
