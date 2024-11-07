@@ -8,6 +8,8 @@ export default function Form() {
         feedback: ""
     });
 
+    const [errors, setErrors] = useState({});
+
     //handle input changes
     const handleChange = (e) => {
         const { value, name, type, checked } = e.target;
@@ -30,13 +32,29 @@ export default function Form() {
         });
     };
 
-    console.log(formData);
+    // Validation function
+    const validateForm = () => {
+        const validationErrors = {};
+
+        // Check if "understanding" question is answered
+        if (!formData.understanding) {
+            validationErrors.understanding = "Please select an option for question 3.";
+        }
+
+        return validationErrors;
+    };
 
     //handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form submitted");
-        //route to send survey response to server 
+        const validationErrors = validateForm();
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0) {
+            console.log("Form submitted", formData);
+            //route to send survey response to server 
+        }
+        
     };
 
     return (
@@ -116,6 +134,7 @@ export default function Form() {
                                 <input type="radio" name="understanding" value="unsure" onChange={handleChange}/>
                                 I am unsure if my understanding has changed.
                             </label>
+                            {errors.understanding && <p style={{ color: "red" }}>{errors.understanding}</p>}
                         </li>
 
                         <li>
