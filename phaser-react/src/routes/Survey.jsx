@@ -144,7 +144,7 @@ export default function Form() {
                                 experience?
                             </p>
                             <label>
-                                <textarea rows="7" cols="60" name="feedback" onChange={handleChange}/>
+                                <textarea name="feedback" placeholder="So much..." rows="7" cols="60" onChange={handleChange} />
                             </label>
                         </li>
                     </ol>
