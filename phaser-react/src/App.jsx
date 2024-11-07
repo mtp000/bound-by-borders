@@ -1,5 +1,7 @@
 import { useMachine } from '@xstate/react'
 import { gameplayMachine } from './gameplay'
+import Header from './routes/Header';
+import Footer from './routes/Footer'
 
 import Catalyst from './states/flow1/Catalyst';
 import Objective from './states/flow1/Objective';
@@ -33,5 +35,16 @@ export default function App() {
   const SceneComponent = scenes[state.value];
 
   // Render the component if it exists
-  return SceneComponent ? <SceneComponent state={state} send={send} /> : null;
+  return (
+    <>
+      <Header />
+
+      <div>
+        {SceneComponent ? <SceneComponent state={state} send={send} /> : null}
+      </div><br/>
+
+      <Footer />
+    </>
+   
+  );
 }
