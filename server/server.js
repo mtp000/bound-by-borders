@@ -15,7 +15,7 @@ const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
 
 // PROD: Serve static files from the dist directory
-app.use(express.static(path.join(_dirname, 'phaser-react/dist')));
+app.use(express.static(path.join(_dirname, '../phaser-react/dist')));
 
 
 
@@ -44,7 +44,7 @@ app.post('/api/start-game', (req, res) => {
 
 //PROD: Send all other requests to index.html
 app.get('*', (req, res) => {
-    res.sendFile(path.join(_dirname, 'phaser-react/dist', 'index.html'));
+    res.sendFile(path.join(_dirname, '../phaser-react/dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
