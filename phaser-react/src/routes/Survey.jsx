@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function Form() {
-    const {formData, setFormData} = useState({
+    const [formData, setFormData] = useState({
         immigrantVisas: {},
         nonImmigrantVisas: {},
         understanding: "",
@@ -10,8 +10,27 @@ export default function Form() {
 
     //handle input changes
     const handleChange = (e) => {
-        console.log("change recorded");
-    }
+        const { value, name, type, checked } = e.target;
+        const group = e.target.dataset.group; // Accesses data-group value
+
+        setFormData(prevState => {
+            if (type === "checkbox") {
+                return {
+                    ...prevState,
+                    [group]: {
+                        ...prevState[group],
+                        [e.target.name]: checked
+                    }
+                };
+            } else if (type === "radio") {
+                return { ...prevState, [group]: name };
+            } else {
+                return { ...prevState, [name] : value };
+            }
+        });
+    };
+
+    console.log(formData);
 
     //handle form submission
     const handleSubmit = async (e) => {
