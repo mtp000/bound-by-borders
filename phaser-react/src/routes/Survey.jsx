@@ -1,8 +1,12 @@
 import React from "react";
+import Header from "./Header";
+import Footer from "./Footer"
 
 export default function Form() {
     return (
         <>
+        <Header />
+
             <form>
                 <fieldset>
                     <legend>Feedback Survey</legend>
@@ -94,6 +98,8 @@ export default function Form() {
                     </ol>
                 </fieldset>
             </form>
+
+        <Footer />
         </>
     );
 }

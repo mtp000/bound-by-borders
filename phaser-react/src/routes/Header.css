@@ -1,0 +1,40 @@
+a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+a:hover {
+    color: brown
+}
+
+#header-title a {
+    font-size: x-large;
+}
+
+#header-title a:hover {
+    color: rgb(99, 118, 137);
+}
+
+.header-pages a {
+    font-size: small;
+}
+
+.header-pages {
+    display: flex;
+    justify-content: space-between; /* Evenly space the <p> elements */
+    width: auto; /* Ensure the width is just enough to fit the content */
+    margin-left: auto; /* Align the .header-pages to the right */
+    gap: 15px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: tan; /* White background for the header */
+    /*border-bottom: 2px solid #dfce91; /* Light gray border at the bottom */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
