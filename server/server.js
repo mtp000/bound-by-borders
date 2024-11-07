@@ -30,7 +30,7 @@ app.post('/api/start-game', (req, res) => {
     // Increment the counter when the game is started
     gameStartCounter += 1;
   
-    // You can also add database logic here to update the counter in the database
+    // Add database logic here to update the counter in the database
     // Example: await db.query('UPDATE counter_table SET counter = $1', [gameStartCounter]);
   
     res.status(200).json({ message: 'Game start counter updated', counter: gameStartCounter });
