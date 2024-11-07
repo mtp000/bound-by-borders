@@ -1,23 +1,35 @@
 import React, { useState, useEffect } from 'react'
 
 export default function Catalyst({ state, send }) {
-    const [counter, setCounter] = useState(() => {
-      // Retrieve counter from localStorage or default to 0
-      return parseInt(localStorage.getItem('gameStartCounter')) || 0;
-    });
-  
-    useEffect(() => {
-      // Save the counter to localStorage whenever it changes
-      localStorage.setItem('gameStartCounter', counter);
-    }, [counter]);
+    const [counter, setCounter] = useState(0);
 
-  const handleContinue = () => {
-    if (state.matches('catalyst_earth')) {
-      setCounter(prevCount => prevCount + 1);
-      console.log(counter);
-    }
-    send({type: "CONTINUE"});
-  };
+    useEffect(() => {
+      // Fetch the current counter from the server when the component mounts
+      fetch('api/game-start-counter')
+        .then((response) => response.json())
+        .then((data) => setCounter(data.counter))
+        .catch((error) => console.error('Error fetching counter:', error));
+    }, []);
+  
+    const handleContinue = () => {
+      if (state.matches('catalyst_earth')) {
+        // Increment the counter on the server
+        fetch('api/start-game', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setCounter(data.counter); // Update the counter in state with the latest value from the server
+          })
+          .catch((error) => console.error('Error updating counter:', error));
+      }
+  
+      send({ type: 'CONTINUE' });
+    };
+
 
   if (state.matches('catalyst_earth')) {
     return (
