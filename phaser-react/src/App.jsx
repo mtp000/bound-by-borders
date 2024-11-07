@@ -43,7 +43,7 @@ export default function App() {
         {SceneComponent ? <SceneComponent state={state} send={send} /> : null}
       </div><br/>
 
-      <Footer />
+      <Footer/>
     </>
    
   );

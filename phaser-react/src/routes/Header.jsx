@@ -14,13 +14,19 @@ export default function Header() {
             </div>
 
             <div className="header-pages">
+                <Link to="/survey"> 
+                    <p>Survey</p>
+                </Link>
+
+                <Link to="/sources"> 
+                    <p>Sources</p>
+                </Link>
+                
                 <Link to="/about"> 
                     <p >About</p>
                 </Link>
             
-                <Link to="/survey"> 
-                    <p>Survey</p>
-                </Link>
+                
             </div>
         </header>
   )
