@@ -42,7 +42,7 @@ export const gameplayMachine = createMachine({
                     // actions: "assignDataToContext",
                 },
                 LEGAL_OPTION_SELECTED: {
-                    target: "completed_objective",
+                    target: "choose_visas",
                 },
             },
         },
@@ -101,6 +101,50 @@ export const gameplayMachine = createMachine({
                 },
             },
         },
+        choose_visas: {
+            on: {
+                DIVERSITY: {
+                    target: "diversity",
+                },
+                FIANCE: {
+                    target: "fiance",
+                },
+                FAMILY: {
+                    target: "family",
+                }, 
+                STUDENT: {
+                    target: "student",
+                },
+            },
+        },
+        diversity : {
+            on: {
+                RETRY : {
+                    target: "choose_visas",
+                }
+            }
+         },
+         fiance : {
+            on: {
+                RETRY : {
+                    target: "choose_visas",
+                }
+            }
+         },
+         family : {
+            on: {
+                RETRY : {
+                    target: "choose_visas",
+                }
+            }
+         },
+         student : {
+            on: {
+                APPLY : {
+                    target: "university",
+                }
+            }
+         },
         // on: {
         //     RESTART: {
         //         target: "completed_objective",
