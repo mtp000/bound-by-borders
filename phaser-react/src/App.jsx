@@ -31,9 +31,12 @@ const scenes = {
 export default function App() {
   const [state, send] = useMachine(gameplayMachine);
 
-  // Get the component based on the current state
-  const SceneComponent = scenes[state.value];
-
+  // Determine the current scene key based on the structure of state.value
+  const currentScene = state.value.illegal_route || state.value;
+  
+  // Access the component from the scenes object
+  const SceneComponent = scenes[currentScene];
+  
   // Render the component if it exists
   return (
     <>
