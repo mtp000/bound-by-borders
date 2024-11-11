@@ -87,9 +87,10 @@ export default function App() {
 
 
   // Pass the necessary data to CanAffordUni component
-  const canAffordUniProps = {
+  const contextProps = {
     canAffordUni: state.context.canAffordUni,
-    fluentInEnglish: state.context.fluentInEnglish
+    fluentInEnglish: state.context.fluentInEnglish,
+    visaType: state.context.visaType
   };
 
 
@@ -99,7 +100,7 @@ export default function App() {
       <Header />
 
       <div>
-        {SceneComponent ? <SceneComponent {...canAffordUniProps} state={state} send={send} /> : null}
+        {SceneComponent ? <SceneComponent {...contextProps} state={state} send={send} /> : null}
       </div><br/>
 
   
