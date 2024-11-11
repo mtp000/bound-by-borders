@@ -1,18 +1,18 @@
-import { useMachine } from '@xstate/react'
-import { gameplayMachine } from './gameplay'
+import { useMachine } from '@xstate/react';
+import { gameplayMachine } from './gameplay';
 import Header from './routes/Header';
-import Footer from './routes/Footer'
+import Footer from './routes/Footer';
 
 //  flow1
 import Catalyst from './states/flow1/Catalyst';
 import Objective from './states/flow1/Objective';
-import FindCoyote from './states/flow1/FindCoyote'
+import FindCoyote from './states/flow1/FindCoyote';
 import CostOfCoyote from './states/flow1/CostOfCoyote';
-import EnoughMoney from './states/flow1/EnoughMoney'
-import DaysPass from './states/flow1/DaysPass'
-import Desert from './states/flow1/Desert'
-import Death from './states/flow1/Death'
-import FailedObjective from './states/flow1/FailedOjective'
+import EnoughMoney from './states/flow1/EnoughMoney';
+import DaysPass from './states/flow1/DaysPass';
+import Desert from './states/flow1/Desert';
+import Death from './states/flow1/Death';
+import FailedObjective from './states/flow1/FailedOjective';
 
 // flow2
 import ChooseVisas from './states/flow2/ChooseVisas';
@@ -62,7 +62,7 @@ export default function App() {
     for (let parent of parentStates) {
       if (state.value[parent]) {
         // Return the child state of the active parent
-        return `${parent}.${state.value[parent]}`;
+        return state.value[parent];
       }
     }
 
@@ -85,6 +85,13 @@ export default function App() {
       </div><br/>
 
       <Footer/>
+
+  
+       <div style={{ marginTop: "2rem", padding: "1rem", background: "black" }}>
+        <h4>Debug Info:</h4>
+        <pre>{JSON.stringify(state.context, null, 2)}</pre>
+      </div>
+
     </>
    
   );

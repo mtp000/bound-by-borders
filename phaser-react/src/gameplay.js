@@ -224,7 +224,6 @@ export const gameplayMachine = createMachine(
       }),
       assignVisaType: assign(({ context, event }) => {
         return {
-          ...context,
           visaType: event.type, // Ensure event type is passed correctly
         };
       }),
