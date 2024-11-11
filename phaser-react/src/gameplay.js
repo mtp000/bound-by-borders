@@ -261,13 +261,13 @@ export const gameplayMachine = createMachine(
                         on: {
                             CARNICERIA: [
                                 {
-                                    target: "can_Afford_Uni",
+                                    target: "can_afford_uni",
                                     actions: [],
                                 },
                             ],
                         },
                     },
-                    can_Afford_Uni: {
+                    can_afford_uni: {
                         entry: {
                             type: "canAffordUni",
                         },

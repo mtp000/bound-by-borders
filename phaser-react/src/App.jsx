@@ -1,7 +1,7 @@
 import { useMachine } from '@xstate/react';
 import { gameplayMachine } from './gameplay';
 import Header from './routes/Header';
-import Footer from './routes/Footer';
+//import Footer from './routes/Footer';
 
 //  flow1
 import Catalyst from './states/flow1/Catalyst';
@@ -19,6 +19,12 @@ import ChooseVisas from './states/flow2/ChooseVisas';
 import Ineligible from './states/flow2/Ineligible';
 
 // flow2/student
+import Broke from './states/flow2/student/Broke';
+import CanAffordUni from './states/flow2/student/CanAffordUni';
+import Fluent from './states/flow2/student/Fluent';
+import JobsAvailable from './states/flow2/student/JobsAvailable';
+import LearnEnglish from './states/flow2/student/LearnEnglish';
+import RequiresEnglish from './states/flow2/student/RequiresEnglish';
 import Insufficient from './states/flow2/student/Insufficient';
 import CompletedObjective from './states/flow2/student/CompletedObjective';
 
@@ -44,9 +50,15 @@ const scenes = {
 
   // Student Visa Children State
   insufficient: Insufficient,
-  completed_objective: CompletedObjective, //need to add to gameplayMachine
+  broke: Broke,
+  can_afford_uni: CanAffordUni,
+  completed_objective: CompletedObjective,
+  fluent: Fluent,
+  insufficient: Insufficient,
+  jobs_available: JobsAvailable,
+  learn_english: LearnEnglish,
+  requires_english: RequiresEnglish,
 };
-
 
 
 export default function App() {
@@ -83,8 +95,6 @@ export default function App() {
       <div>
         {SceneComponent ? <SceneComponent state={state} send={send} /> : null}
       </div><br/>
-
-      <Footer/>
 
   
        <div style={{ marginTop: "2rem", padding: "1rem", background: "black" }}>
