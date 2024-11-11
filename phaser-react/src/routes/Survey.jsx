@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import Header from "./Header";
+import Footer from "./Footer"
 
 export default function Form() {
     const [formData, setFormData] = useState({
@@ -59,7 +61,10 @@ export default function Form() {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <Header />
+      
+              <form onSubmit={handleSubmit}>
+        
                 <fieldset>
                     <legend>Feedback Survey</legend>
 
@@ -152,6 +157,8 @@ export default function Form() {
                 <button type="submit">Submit</button>
                 </fieldset>
             </form>
+
+        <Footer />
         </>
     );
 }
