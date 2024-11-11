@@ -1,5 +1,4 @@
 import { createMachine, assign } from "xstate";
-
 export const gameplayMachine = createMachine(
   {
     context: {
@@ -115,13 +114,13 @@ export const gameplayMachine = createMachine(
         },
       },
       legal_route: {
-        initial: "choose visas",
+        initial: "choose_visas",
         states: {
-          "choose visas": {
+          choose_visas: {
             on: {
               STUDENT: [
                 {
-                  target: "ineligible",
+                  target: "#gameplay.student_visa_route",
                   actions: [
                     {
                       type: "assignVisaType",
@@ -147,7 +146,6 @@ export const gameplayMachine = createMachine(
                       type: "assignVisaType",
                     },
                   ],
-                  meta: {},
                 },
               ],
               FAMILY: [
@@ -166,7 +164,7 @@ export const gameplayMachine = createMachine(
             on: {
               CHOOSE_OTHER_VISA: [
                 {
-                  target: "choose visas",
+                  target: "choose_visas",
                   actions: [
                     {
                       type: "resetVisaType",
@@ -174,37 +172,30 @@ export const gameplayMachine = createMachine(
                   ],
                 },
               ],
-              APPLY: [
+            },
+          },
+        },
+      },
+      student_visa_route: {
+        initial: "insufficient",
+        states: {
+          insufficient: {
+            on: {
+              "LEARN ENGLISH": [
                 {
-                  target: "student visa route",
-                  guard: "isStudentVisa",
+                  target: "New state 1",
+                  actions: [],
+                },
+              ],
+              "GET A JOB": [
+                {
+                  target: "New state 1",
                   actions: [],
                 },
               ],
             },
           },
-          "student visa route": {
-            initial: "insufficient",
-            states: {
-              insufficient: {
-                on: {
-                  "LEARN ENGLISH": [
-                    {
-                      target: "New state 1",
-                      actions: [],
-                    },
-                  ],
-                  "GET A JOB": [
-                    {
-                      target: "New state 1",
-                      actions: [],
-                    },
-                  ],
-                },
-              },
-              "New state 1": {},
-            },
-          },
+          "New state 1": {},
         },
       },
     },
@@ -233,18 +224,13 @@ export const gameplayMachine = createMachine(
       }),
       assignVisaType: assign(({ context, event }) => {
         return {
-            ...context,
+          ...context,
           visaType: event.type, // Ensure event type is passed correctly
         };
       }),
     },
     actors: {},
-    guards: {
-      isStudentVisa: ({ context }) => {
-        console.log("Checking guard - isStudentVisa:", context.visaType);
-        return context.visaType === "STUDENT"; // Only allow transitions for "STUDENT" visa type
-      },
-    },
+    guards: {},
     delays: {},
   },
 );
