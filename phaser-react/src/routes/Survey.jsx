@@ -3,11 +3,68 @@ import Header from "./Header";
 import Footer from "./Footer"
 
 export default function Form() {
+    const [formData, setFormData] = useState({
+        immigrantVisas: {},
+        nonImmigrantVisas: {},
+        understanding: "",
+        feedback: ""
+    });
+
+    const [errors, setErrors] = useState({});
+
+    //handle input changes
+    const handleChange = (e) => {
+        const { value, name, type, checked } = e.target;
+        const group = e.target.dataset.group; // Accesses data-group value
+
+        setFormData(prevState => {
+            if (type === "checkbox") {
+                return {
+                    ...prevState,
+                    [group]: {
+                        ...prevState[group],
+                        [e.target.name]: checked
+                    }
+                };
+            } else if (type === "radio") {
+                return { ...prevState, [name]: value };
+            } else {
+                return { ...prevState, [name] : value };
+            }
+        });
+    };
+
+    // Validation function
+    const validateForm = () => {
+        const validationErrors = {};
+
+        // Check if "understanding" question is answered
+        if (!formData.understanding) {
+            validationErrors.understanding = "Please select an option for question 3.";
+        }
+
+        return validationErrors;
+    };
+
+    //handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const validationErrors = validateForm();
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0) {
+            console.log("Form submitted", formData);
+            //route to send survey response to server 
+        }
+        
+    };
+
     return (
         <>
-        <Header />
-
-            <form>
+            <Header />
+      
+              <form onSubmit={handleSubmit}>
+        
                 <fieldset>
                     <legend>Feedback Survey</legend>
 
@@ -20,21 +77,20 @@ export default function Form() {
                              options were you aware of prior to the simulation?
                             </p>
                             <label>
-                                <input type="checkbox" name="diversity" 
-                                value="diversity"/>
+                                <input type="checkbox" data-group="immigrantVisas" name="diversity"  onChange={handleChange}/>
                                 Divserity (ie lottery)
                             </label>
                             <label>
-                                <input type="checkbox" name="familyBased" />
+                                <input type="checkbox" data-group="immigrantVisas" name="familyBased" onChange={handleChange} />
                                 Family-based
                             </label>
 
                             <label>
-                                <input type="checkbox" name="employmentBased" />
+                                <input type="checkbox" data-group="immigrantVisas" value="employmentBased" onChange={handleChange}/>
                                 Employment-based
                             </label>
                             <label>
-                                <input type="checkbox" name="refugee" />
+                                <input type="checkbox" data-group="immigrantVisas" name="refugee" onChange={handleChange}/>
                                 Refugee/ Asylum seekers
                             </label>
                         </li>
@@ -47,20 +103,20 @@ export default function Form() {
                                 git options were you aware of prior the simulation?
                             </p>
                             <label>
-                                <input type="checkbox" name="fiance" />
+                                <input type="checkbox" name="fiance" data-group="nonImmigrantVisas" onChange={handleChange}/>
                                 Fiancé
                             </label>
                             <label>
-                                <input type="checkbox" name="work" />
+                                <input type="checkbox" name="work" data-group="nonImmigrantVisas" onChange={handleChange}/>
                                 Work
                             </label>
 
                             <label>
-                                <input type="checkbox" name="tourism" />
+                                <input type="checkbox" name="tourism" data-group="nonImmigrantVisas" onChange={handleChange}/>
                                 Tourism
                             </label>
                             <label>
-                                <input type="checkbox" name="student" />
+                                <input type="checkbox" name="student" data-group="nonImmigrantVisas" onChange={handleChange}/>
                                 Student
                             </label>
                         </li>
@@ -72,17 +128,18 @@ export default function Form() {
                                 of the visa options mentioned above?
                             </p>
                             <label>
-                                <input type="radio" value="yes"/>
+                                <input type="radio" name="understanding" value="yes" onChange={handleChange}/>
                                 Yes, I have learned more about some or all of the visa options.
                             </label><br/>
                             <label>
-                                <input type="radio" value="yes"/>
+                                <input type="radio" name="understanding" value="no" onChange={handleChange}/>
                                 No, my understanding of the visa options has not changes.
                             </label><br/>
                             <label>
-                                <input type="radio" value="yes"/>
+                                <input type="radio" name="understanding" value="unsure" onChange={handleChange}/>
                                 I am unsure if my understanding has changed.
                             </label>
+                            {errors.understanding && <p style={{ color: "red" }}>{errors.understanding}</p>}
                         </li>
 
                         <li>
@@ -92,10 +149,12 @@ export default function Form() {
                                 experience?
                             </p>
                             <label>
-                                <textarea rows="7" cols="40"/>
+                                <textarea name="feedback" placeholder="So much..." rows="7" cols="60" onChange={handleChange} />
                             </label>
                         </li>
                     </ol>
+
+                <button type="submit">Submit</button>
                 </fieldset>
             </form>
 
