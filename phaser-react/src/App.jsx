@@ -77,14 +77,20 @@ export default function App() {
         return state.value[parent];
       }
     }
-
       // If no parent state is active, return top-level state
       return state.value;
   };
 
+
   // Access the component from the scenes object
   const SceneComponent = scenes[currentScene()];
 
+
+  // Pass the necessary data to CanAffordUni component
+  const canAffordUniProps = {
+    canAffordUni: state.context.canAffordUni,
+    fluentInEnglish: state.context.fluentInEnglish
+  };
 
 
   // Render the component if it exists
@@ -93,7 +99,7 @@ export default function App() {
       <Header />
 
       <div>
-        {SceneComponent ? <SceneComponent state={state} send={send} /> : null}
+        {SceneComponent ? <SceneComponent {...canAffordUniProps} state={state} send={send} /> : null}
       </div><br/>
 
   
