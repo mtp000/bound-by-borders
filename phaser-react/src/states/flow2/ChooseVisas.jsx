@@ -9,7 +9,7 @@ export default function ChooseVisas({ send }) {
         <button onClick={() => send({type: "FIANCE"})}>Fiancé</button>
         <button onClick={() => send({type: "FAMILY"})}>Family-sponsored</button><br/>
 
-        <button onClick={() => send({ type: "RESTART" })}>Try another route</button>
+        <button onClick={() => send({ type: "RESTART" })}>Choose another visa</button>
         
     </>
   )

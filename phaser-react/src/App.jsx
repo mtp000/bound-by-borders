@@ -103,12 +103,6 @@ export default function App() {
         {SceneComponent ? <SceneComponent {...contextProps} state={state} send={send} /> : null}
       </div><br/>
 
-  
-       <div style={{ marginTop: "2rem", padding: "1rem", background: "black" }}>
-        <h4>Debug Info:</h4>
-        <pre>{JSON.stringify(state.context, null, 2)}</pre>
-      </div>
-
     </>
    
   );
