@@ -1,13 +1,14 @@
 import { createMachine, assign } from "xstate";
+const initialContext = {
+    wealth: "2000",
+    visaType: null,
+    canAffordUni: false,
+    fluentInEnglish: false,
+    canAffordClasses: false,
+};
 export const gameplayMachine = createMachine(
     {
-        context: {
-            wealth: "2000",
-            visaType: null,
-            canAffordUni: false,
-            fluentInEnglish: false,
-            canAffordClasses: false,
-        },
+        context: initialContext,
         id: "gameplay",
         initial: "catalyst_earth",
         states: {
@@ -241,7 +242,7 @@ export const gameplayMachine = createMachine(
                             CONTINUE: [
                                 {
                                     target: "#gameplay.completed_objective",
-                                    guard: "qualified",
+                                    //guard: "qualified",
                                     actions: [],
                                 },
                             ],
@@ -281,7 +282,7 @@ export const gameplayMachine = createMachine(
                             CONTINUE: [
                                 {
                                     target: "#gameplay.completed_objective",
-                                    guard: "qualified",
+                                    //guard: "qualified",
                                     actions: [],
                                 },
                             ],
@@ -290,7 +291,7 @@ export const gameplayMachine = createMachine(
                 },
             },
             completed_objective: {
-              type: "final",
+
             },
         },
         on: {
@@ -308,9 +309,7 @@ export const gameplayMachine = createMachine(
     },
     {
         actions: {
-            resetGame: assign(({ initialContext }) => {
-                return initialContext; // Resets the entire context to its initial state
-            }),
+            resetGame: assign(() => initialContext),
             resetVisaType: assign(() => {
                 return {
                     visaType: null,
@@ -318,6 +317,7 @@ export const gameplayMachine = createMachine(
             }),
             assignVisaType: assign(({ context, event }) => {
                 return {
+                    ...context,
                     visaType: event.type, // Ensure event type is passed correctly
                 };
             }),
@@ -336,9 +336,8 @@ export const gameplayMachine = createMachine(
         },
         actors: {},
         guards: {
-            qualified: (context) => {
-                return context.canAffordUni && context.fluentInEnglish;
-            },
+            // qualified: (context) => 
+            //     context.canAffordUni && context.fluentInEnglish,
         },
         delays: {},
     }
