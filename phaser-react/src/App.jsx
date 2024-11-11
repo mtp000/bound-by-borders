@@ -3,6 +3,7 @@ import { gameplayMachine } from './gameplay'
 import Header from './routes/Header';
 import Footer from './routes/Footer'
 
+//  flow1
 import Catalyst from './states/flow1/Catalyst';
 import Objective from './states/flow1/Objective';
 import FindCoyote from './states/flow1/FindCoyote'
@@ -13,6 +14,13 @@ import Desert from './states/flow1/Desert'
 import Death from './states/flow1/Death'
 import FailedObjective from './states/flow1/FailedOjective'
 
+// flow2
+import ChooseVisas from './states/flow2/ChooseVisas';
+import Ineligible from './states/flow2/Ineligible';
+
+// flow2/student
+import Insufficient from './states/flow2/student/Insufficient';
+import CompletedObjective from './states/flow2/student/CompletedObjective';
 
 
 const scenes = {
@@ -31,9 +39,12 @@ const scenes = {
   failed_objective: FailedObjective,
 
   // Legal Route Children State 
-  //completed_objective: CompletedObjective,
+  choose_visas: ChooseVisas,
+  ineligible: Ineligible,
 
   // Student Visa Children State
+  insufficient: Insufficient,
+  completed_objective: CompletedObjective, //need to add to gameplayMachine
 };
 
 
@@ -51,7 +62,7 @@ export default function App() {
     for (let parent of parentStates) {
       if (state.value[parent]) {
         // Return the child state of the active parent
-        return state.value[parent];
+        return `${parent}.${state.value[parent]}`;
       }
     }
 
