@@ -1,3 +1,4 @@
+import React from 'react';
 import { useMachine } from '@xstate/react';
 import { gameplayMachine } from './gameplay';
 import Header from './routes/Header';
