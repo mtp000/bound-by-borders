@@ -12,7 +12,7 @@ export default function Form() {
 
     const [errors, setErrors] = useState({});
 
-    //handle input changes
+    // Handle input changes
     const handleChange = (e) => {
         const { value, name, type, checked } = e.target;
         const group = e.target.dataset.group; // Accesses data-group value
@@ -23,13 +23,13 @@ export default function Form() {
                     ...prevState,
                     [group]: {
                         ...prevState[group],
-                        [e.target.name]: checked
+                        [name]: checked
                     }
                 };
             } else if (type === "radio") {
                 return { ...prevState, [name]: value };
             } else {
-                return { ...prevState, [name] : value };
+                return { ...prevState, [name]: value };
             }
         });
     };
@@ -46,7 +46,7 @@ export default function Form() {
         return validationErrors;
     };
 
-    //handle form submission
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         const validationErrors = validateForm();
@@ -54,69 +54,76 @@ export default function Form() {
 
         if (Object.keys(validationErrors).length === 0) {
             console.log("Form submitted", formData);
-            //route to send survey response to server 
+            // Route to send survey response to server 
+
+            // Reset form data to clear the form
+            setFormData({
+                immigrantVisas: {},
+                nonImmigrantVisas: {},
+                understanding: "",
+                feedback: ""
+            });
+
+            // Show success message
+            alert("Survey successfully submitted!");
         }
-        
     };
 
     return (
         <>
             <Header />
       
-              <form onSubmit={handleSubmit}>
-        
+            <form onSubmit={handleSubmit}>
                 <fieldset>
                     <legend>Feedback Survey</legend>
 
                     <ol>
                         <li>
                             <p>
-                            <span style={{ textDecoration: 'underline', fontStyle: 'italic' }}>Immigrant</span> visas
-                            allows a person to live and work in the U.S. indefinitely. Which of the following <span 
-                            style={{ textDecoration: 'underline', fontStyle: 'italic' }}>immigrant</span> visa
-                             options were you aware of prior to the simulation?
+                                <span style={{ textDecoration: 'underline', fontStyle: 'italic' }}>Immigrant</span> visas
+                                allows a person to live and work in the U.S. indefinitely. Which of the following <span 
+                                style={{ textDecoration: 'underline', fontStyle: 'italic' }}>immigrant</span> visa
+                                options were you aware of prior to the simulation?
                             </p>
                             <label>
-                                <input type="checkbox" data-group="immigrantVisas" name="diversity"  onChange={handleChange}/>
-                                Divserity (ie lottery)
+                                <input type="checkbox" data-group="immigrantVisas" name="diversity" onChange={handleChange} checked={formData.immigrantVisas.diversity || false} />
+                                Diversity (ie lottery)
                             </label>
                             <label>
-                                <input type="checkbox" data-group="immigrantVisas" name="familyBased" onChange={handleChange} />
+                                <input type="checkbox" data-group="immigrantVisas" name="familyBased" onChange={handleChange} checked={formData.immigrantVisas.familyBased || false} />
                                 Family-based
                             </label>
-
                             <label>
-                                <input type="checkbox" data-group="immigrantVisas" value="employmentBased" onChange={handleChange}/>
+                                <input type="checkbox" data-group="immigrantVisas" name="employmentBased" onChange={handleChange} checked={formData.immigrantVisas.employmentBased || false} />
                                 Employment-based
                             </label>
                             <label>
-                                <input type="checkbox" data-group="immigrantVisas" name="refugee" onChange={handleChange}/>
+                                <input type="checkbox" data-group="immigrantVisas" name="refugee" onChange={handleChange} checked={formData.immigrantVisas.refugee || false} />
                                 Refugee/ Asylum seekers
                             </label>
                         </li>
 
                         <li>
                             <p>
-                                <u><i>Non-immigrant</i></u> visas permits temporary 
+                                <u><i>Non-immigrant</i></u> visas permit temporary 
                                 stay for specific purposes like work or study. 
-                                Which of the following <u><i>non-immigrant</i></u> visas
-                                git options were you aware of prior the simulation?
+                                Which of the following <u><i>non-immigrant</i></u> visa
+                                options were you aware of prior to the simulation?
                             </p>
                             <label>
-                                <input type="checkbox" name="fiance" data-group="nonImmigrantVisas" onChange={handleChange}/>
+                                <input type="checkbox" name="fiance" data-group="nonImmigrantVisas" onChange={handleChange} checked={formData.nonImmigrantVisas.fiance || false} />
                                 Fiancé
                             </label>
                             <label>
-                                <input type="checkbox" name="work" data-group="nonImmigrantVisas" onChange={handleChange}/>
+                                <input type="checkbox" name="work" data-group="nonImmigrantVisas" onChange={handleChange} checked={formData.nonImmigrantVisas.work || false} />
                                 Work
                             </label>
-
                             <label>
-                                <input type="checkbox" name="tourism" data-group="nonImmigrantVisas" onChange={handleChange}/>
+                                <input type="checkbox" name="tourism" data-group="nonImmigrantVisas" onChange={handleChange} checked={formData.nonImmigrantVisas.tourism || false} />
                                 Tourism
                             </label>
                             <label>
-                                <input type="checkbox" name="student" data-group="nonImmigrantVisas" onChange={handleChange}/>
+                                <input type="checkbox" name="student" data-group="nonImmigrantVisas" onChange={handleChange} checked={formData.nonImmigrantVisas.student || false} />
                                 Student
                             </label>
                         </li>
@@ -128,15 +135,15 @@ export default function Form() {
                                 of the visa options mentioned above?
                             </p>
                             <label>
-                                <input type="radio" name="understanding" value="yes" onChange={handleChange}/>
+                                <input type="radio" name="understanding" value="yes" onChange={handleChange} checked={formData.understanding === "yes"} />
                                 Yes, I have learned more about some or all of the visa options.
                             </label><br/>
                             <label>
-                                <input type="radio" name="understanding" value="no" onChange={handleChange}/>
-                                No, my understanding of the visa options has not changes.
+                                <input type="radio" name="understanding" value="no" onChange={handleChange} checked={formData.understanding === "no"} />
+                                No, my understanding of the visa options has not changed.
                             </label><br/>
                             <label>
-                                <input type="radio" name="understanding" value="unsure" onChange={handleChange}/>
+                                <input type="radio" name="understanding" value="unsure" onChange={handleChange} checked={formData.understanding === "unsure"} />
                                 I am unsure if my understanding has changed.
                             </label>
                             {errors.understanding && <p style={{ color: "red" }}>{errors.understanding}</p>}
@@ -149,16 +156,16 @@ export default function Form() {
                                 experience?
                             </p>
                             <label>
-                                <textarea name="feedback" placeholder="So much..." rows="7" cols="60" onChange={handleChange} />
+                                <textarea name="feedback" placeholder="So much..." rows="7" cols="60" onChange={handleChange} value={formData.feedback} />
                             </label>
                         </li>
                     </ol>
 
-                <button type="submit">Submit</button>
+                    <button type="submit">Submit</button>
                 </fieldset>
             </form>
 
-        <Footer />
+            <Footer />
         </>
     );
 }
