@@ -40,6 +40,17 @@ Navigate to [http://localhost:5173](http://localhost:5173) to interact with the 
 
 ## Demo
 
+**Homescreen where the user is greeted with backstory for the simulation.**
+![image](https://github.com/user-attachments/assets/2dd56058-9b42-4c2a-a5b9-f5c7cc2fd57a)
+
+**Objective**
+![image](https://github.com/user-attachments/assets/b179e056-f917-4910-9ed2-3d5abc9de669)
+
+**One of the decisions players can make to advance**
+![image](https://github.com/user-attachments/assets/86f230eb-3fd4-450e-987d-0793014de4c0)
+
+**Feedback Survey**
+![image](https://github.com/user-attachments/assets/012305ce-3721-4eba-861e-73a0ffdb0305)
 
 
 ## Built With
