@@ -1,0 +1,9 @@
+a {
+    color: rgba(255, 255, 255, 0.87); /* default link color */
+    text-decoration: none; /* remove underline */
+    transition: color 0.3s ease; /* smooth transition */
+}
+
+a:hover {
+    color: #56b0e6; /* light blue hover color */
+}
